@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="CustomAuthModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="t_users">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="username" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="pwd" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="role" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="t_usersType" Relationship="Self.FK_t_users_t_users" FromRole="t_users" ToRole="t_usersType" />
+  </EntityType>
+  <EntityType Name="t_usersType">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="roles" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="t_users" Relationship="Self.FK_t_users_t_users" FromRole="t_usersType" ToRole="t_users" />
+  </EntityType>
+  <Association Name="FK_t_users_t_users">
+    <End Role="t_usersType" Type="Self.t_usersType" Multiplicity="1" />
+    <End Role="t_users" Type="Self.t_users" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="t_usersType">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="t_users">
+        <PropertyRef Name="role" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="CustomAuthEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="t_users" EntityType="Self.t_users" />
+    <EntitySet Name="t_usersType" EntityType="Self.t_usersType" />
+    <AssociationSet Name="FK_t_users_t_users" Association="Self.FK_t_users_t_users">
+      <End Role="t_usersType" EntitySet="t_usersType" />
+      <End Role="t_users" EntitySet="t_users" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

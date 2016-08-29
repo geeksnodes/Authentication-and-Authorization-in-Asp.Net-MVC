@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="CustomAuthModelStoreContainer" CdmEntityContainer="CustomAuthEntities">
+    <EntitySetMapping Name="t_users">
+      <EntityTypeMapping TypeName="CustomAuthModel.t_users">
+        <MappingFragment StoreEntitySet="t_users">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="username" ColumnName="username" />
+          <ScalarProperty Name="pwd" ColumnName="pwd" />
+          <ScalarProperty Name="role" ColumnName="role" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="t_usersType">
+      <EntityTypeMapping TypeName="CustomAuthModel.t_usersType">
+        <MappingFragment StoreEntitySet="t_usersType">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="roles" ColumnName="roles" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

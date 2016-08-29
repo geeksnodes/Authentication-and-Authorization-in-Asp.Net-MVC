@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="CustomAuthModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="t_users">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="username" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="pwd" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="role" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="t_usersType">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="roles" Type="nvarchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_t_users_t_users">
+    <End Role="t_usersType" Type="Self.t_usersType" Multiplicity="1" />
+    <End Role="t_users" Type="Self.t_users" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="t_usersType">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="t_users">
+        <PropertyRef Name="role" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="CustomAuthModelStoreContainer">
+    <EntitySet Name="t_users" EntityType="Self.t_users" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="t_usersType" EntityType="Self.t_usersType" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_t_users_t_users" Association="Self.FK_t_users_t_users">
+      <End Role="t_usersType" EntitySet="t_usersType" />
+      <End Role="t_users" EntitySet="t_users" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
